@@ -1,17 +1,25 @@
-public class Lab1 {
+import java.util.Date;
+import java.io.*;
+import java.util.*;
 
+public class Lab1 {
     private double a;
     private double b;
     private double x;
 
     private final double e = 2.7182;
 
-    /*
-    * @param a variable a for equation
-    * @param b variable b for equation
-    * @param x variable x for equation
-    * */
     public Lab1(double a, double b, double x){
+        SetStartValues(a, b, x);
+    }
+
+    /*
+     * Method for setting start variables
+     * @param a variable a for equation
+     * @param b variable b for equation
+     * @param x variable x for equation
+     * */
+    public void SetStartValues(double a, double b, double x){
         this.a = a;
         this.b = b;
         this.x = x;
@@ -57,8 +65,39 @@ public class Lab1 {
         System.out.printf("d = %f\n", calculateEquationD());
     }
 
+    /*
+    * Method for inputting values to variables a, b, x and showing the results of the function y and d
+    * */
+    public void InputValuesAndDisplayResults() {
+        boolean isInput = true;
+        while (isInput){
+            try {
+                InputValues();
+                isInput = false;
+            } catch (Exception ex) {
+                System.out.println("Some error occured while setting values to the variables");
+            }
+        }
+
+        showCalculationResults();
+    }
+
+    private void InputValues(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter variable a: ");
+        a = scanner.nextDouble();
+        System.out.print("Enter variable b: ");
+        b = scanner.nextDouble();
+        System.out.print("Enter variable x: ");
+        x = scanner.nextDouble();
+    }
+
+    /*
+    * Method for displaying current date
+    * */
     public void showCurrentDate(){
-        //System.out.printf("", date);
+        Date date = new Date();
+        System.out.printf("Today: %1$ta %1$td %1$tB %1$tY", date);
     }
 
     /*
@@ -66,7 +105,7 @@ public class Lab1 {
     * */
     public static void main(String[] args){
         Lab1 lab1 = new Lab1(1, 1, 1);
-        lab1.showCalculationResults();
-
+        lab1.InputValuesAndDisplayResults();
+        lab1.showCurrentDate();
     }
 }
