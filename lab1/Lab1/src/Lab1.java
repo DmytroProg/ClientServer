@@ -10,7 +10,7 @@ public class Lab1 {
     private final double e = 2.7182;
 
     public Lab1(double a, double b, double x){
-        SetStartValues(a, b, x);
+        setStartValues(a, b, x);
     }
 
     /*
@@ -19,7 +19,7 @@ public class Lab1 {
      * @param b variable b for equation
      * @param x variable x for equation
      * */
-    public void SetStartValues(double a, double b, double x){
+    public void setStartValues(double a, double b, double x){
         this.a = a;
         this.b = b;
         this.x = x;
@@ -68,11 +68,11 @@ public class Lab1 {
     /*
     * Method for inputting values to variables a, b, x and showing the results of the function y and d
     * */
-    public void InputValuesAndDisplayResults() {
+    public void inputValuesAndDisplayResults() {
         boolean isInput = true;
         while (isInput){
             try {
-                InputValues();
+                inputValues();
                 isInput = false;
             } catch (Exception ex) {
                 System.out.println("Some error occured while setting values to the variables");
@@ -82,7 +82,7 @@ public class Lab1 {
         showCalculationResults();
     }
 
-    private void InputValues(){
+    private void inputValues(){
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter variable a: ");
         a = scanner.nextDouble();
@@ -105,7 +105,7 @@ public class Lab1 {
     * */
     public static void main(String[] args){
         Lab1 lab1 = new Lab1(1, 1, 1);
-        lab1.InputValuesAndDisplayResults();
+        lab1.inputValuesAndDisplayResults();
         lab1.showCurrentDate();
     }
 }
