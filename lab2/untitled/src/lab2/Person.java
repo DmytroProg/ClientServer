@@ -1,18 +1,28 @@
 package lab2;
 
 public class Person {
+    private int id;
     private String name;
     private String surname;
     private String middleName;
     private String address;
     private String phoneNumber;
 
-    public Person(String name, String surname, String middleName, String address, String phoneNumber){
+    public Person(int id, String name, String surname, String middleName, String address, String phoneNumber){
+        this.id = id;
         setName(name);
         setSurname(surname);
         setMiddleName(middleName);
         setAddress(address);
         setPhoneNumber(phoneNumber);
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
+
+    public int getId(){
+        return id;
     }
 
     public void setName(String name){
@@ -72,6 +82,6 @@ public class Person {
 
     @Override
     public String toString(){
-        return surname + " " + name + " " + middleName + ", " + address + " phone: (" + phoneNumber + ")";
+        return id + "| " + surname + " " + name + " " + middleName + ", " + address + " phone: (" + phoneNumber + ")";
     }
 }
