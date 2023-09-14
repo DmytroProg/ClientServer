@@ -62,7 +62,7 @@ public class Patient {
 
     @Override
     public String toString(){
-        return "Patient " + id + ":" + person.toString() + ". Medicine card number " + medicineCardNumber +
+        return "Patient " + id + ": (" + person.toString() + "). Medicine card number " + medicineCardNumber +
                 (hasInsurance? "has " : "does not have ") + "insurance, diagnose: " + diagnose;
     }
 
