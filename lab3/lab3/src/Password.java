@@ -4,6 +4,7 @@ public class Password {
     private boolean hasUpperCase;
     private boolean hasDigits;
     private boolean hasSpecialCharacters;
+    private final String specialChars = "@#$!&*%^";
 
     public Password(String password, int minLength, boolean hasUpperCase, boolean hasDigits, boolean hasSpecialCharacters){
         this.password = password;
@@ -81,7 +82,7 @@ public class Password {
 
     private boolean checkForSpecialCharacters(){
         for (char c : password.toCharArray()) {
-            if (Character.isSpaceChar(c)) {
+            if (specialChars.contains(String.valueOf(c))){
                 return true;
             }
         }
