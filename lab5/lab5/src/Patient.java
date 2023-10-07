@@ -1,4 +1,3 @@
-package lab2;
 public class Patient {
     private int id;
     private Person person;
