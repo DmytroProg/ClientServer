@@ -29,7 +29,7 @@ public class FileArrayCalculator implements ArrayProcessor, DoubleArrayReader{
     @Override
     public void processArray(double[] array) {
         for(double number : array){
-            System.out.print(number);
+            System.out.print(number + " ");
         }
     }
 
@@ -37,7 +37,7 @@ public class FileArrayCalculator implements ArrayProcessor, DoubleArrayReader{
     public void processArray(double[][] array) {
         for(double[] subArray : array){
             for(double number : subArray){
-                System.out.print(number);
+                System.out.print(number + " ");
             }
             System.out.println();
         }
