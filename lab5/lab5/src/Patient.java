@@ -1,4 +1,6 @@
-public class Patient {
+import java.io.Serializable;
+
+public class Patient implements Serializable {
     private int id;
     private Person person;
     private int medicineCardNumber;
@@ -62,7 +64,7 @@ public class Patient {
     @Override
     public String toString(){
         return "Patient " + id + ": (" + person.toString() + "). Medicine card number " + medicineCardNumber +
-                (hasInsurance? "has " : "does not have ") + "insurance, diagnose: " + diagnose;
+                (hasInsurance? " has " : " does not have ") + "insurance, diagnose: " + diagnose;
     }
 
 }
