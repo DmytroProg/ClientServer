@@ -1,8 +1,9 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class PatientFileManager {
-    public static void writePatientsToFile(String fileName, ArrayList<Patient> patients) {
+    public static void writePatientsToFile(String fileName, HashSet<Patient> patients) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
             oos.writeObject(patients);
         }
@@ -11,10 +12,10 @@ public class PatientFileManager {
         }
     }
 
-    public static ArrayList<Patient> readPatientsFromFile(String fileName) {
-        ArrayList<Patient> patients = null;
+    public static HashSet<Patient> readPatientsFromFile(String fileName) {
+        HashSet<Patient> patients = null;
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
-            patients = (ArrayList<Patient>)ois.readObject();
+            patients = (HashSet<Patient>)ois.readObject();
         }
         catch (IOException | ClassNotFoundException e) {
             System.out.println(e.getMessage());

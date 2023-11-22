@@ -1,47 +1,47 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Hospital {
-    private ArrayList<Patient> patients;
+    private HashSet<Patient> patients;
 
-    public Hospital(){
-        createEmptyArrayOfPatients();
+    public Hospital() {
+        createEmptySetOfPatients();
     }
 
-    public void createEmptyArrayOfPatients(){
-        patients = new ArrayList<Patient>();
+    public void createEmptySetOfPatients() {
+        patients = new HashSet<>();
     }
 
-    public void displayPatients(){
-        for(Patient patient : patients){
+    public void displayPatients() {
+        for (Patient patient : patients) {
             System.out.println(patient);
         }
     }
-    public void filterPatientsByDiagnose(String diagnose){
-        for(Patient patient : patients){
-            if(patient.getDiagnose().equals(diagnose)){
+
+    public void filterPatientsByDiagnose(String diagnose) {
+        for (Patient patient : patients) {
+            if (patient.getDiagnose().equals(diagnose)) {
                 System.out.println(patient);
             }
         }
     }
 
-    public void filterPatientsByMedicineCardNumber(int minCardNumber, int maxCardNumber){
-        for(Patient patient : patients){
-            if(patient.getMedicineCardNumber() >= minCardNumber && patient.getMedicineCardNumber() <= maxCardNumber){
+    public void filterPatientsByMedicineCardNumber(int minCardNumber, int maxCardNumber) {
+        for (Patient patient : patients) {
+            if (patient.getMedicineCardNumber() >= minCardNumber && patient.getMedicineCardNumber() <= maxCardNumber) {
                 System.out.println(patient);
             }
         }
     }
 
-    public void filterPatientsByInsurance(boolean hasInsurance){
-        for(Patient patient : patients){
-            if(patient.getHasInsurance() == hasInsurance){
+    public void filterPatientsByInsurance(boolean hasInsurance) {
+        for (Patient patient : patients) {
+            if (patient.getHasInsurance() == hasInsurance) {
                 System.out.println(patient);
             }
         }
     }
 
-    public void addPatient(Scanner scanner){
+    public void addPatient(Scanner scanner) {
         System.out.print("Enter patient ID: ");
         int id = scanner.nextInt();
 
@@ -68,7 +68,7 @@ public class Hospital {
         int medicineCardNumber = scanner.nextInt();
 
         System.out.print("Does the patient have insurance? (y/n): ");
-        boolean hasInsurance = scanner.nextLine().equals("y");
+        boolean hasInsurance = scanner.next().equalsIgnoreCase("y");
 
         scanner.nextLine();
 
@@ -80,14 +80,14 @@ public class Hospital {
         patients.add(patient);
     }
 
-    public void savePatientsInFile(String fileName){
+    public void savePatientsInFile(String fileName) {
         PatientFileManager.writePatientsToFile(fileName, patients);
     }
 
-    public void loadPatientsFromFile(String fileName){
+    public void loadPatientsFromFile(String fileName) {
         patients = PatientFileManager.readPatientsFromFile(fileName);
-        if(patients == null){
-            patients = new ArrayList<Patient>();
+        if (patients == null) {
+            patients = new HashSet<Patient>();
         }
     }
 }
