@@ -1,3 +1,5 @@
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -7,10 +9,12 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String[] options = {
                 "add patient",
-                "see all patients",
                 "filter patients by diagnose",
                 "filter patients by medicine card",
-                "filter patients by insurance",
+                "get patients with no insurance",
+                "get diagnoses and count of patients sorted",
+                "get diagnoses",
+                "get diagnoses and count of patients",
                 "exit"
         };
 
@@ -25,25 +29,47 @@ public class Main {
             switch (index) {
                 // IntelliJ IDEA підказала так зробити
                 case 1 -> hospital.addPatient(scanner);
-                case 2 -> hospital.displayPatients();
-                case 3 -> {
+                case 2 -> {
                     System.out.print("Enter diagnose: ");
                     String diagnose = scanner.nextLine();
-                    hospital.filterPatientsByDiagnose(diagnose);
+                    for(Patient patient : hospital.getPatientsByDiagnoseSortedByMedicineCard(diagnose)){
+                        System.out.println(patient);
+                    }
                 }
-                case 4 -> {
+                case 3 -> {
                     System.out.print("Enter min medicine card: ");
                     int min = scanner.nextInt();
                     System.out.print("Enter max medicine card: ");
                     int max = scanner.nextInt();
-                    hospital.filterPatientsByMedicineCardNumber(min, max);
+                    for(Patient patient : hospital.getPatientsByMedicineCard(min, max)){
+                        System.out.println(patient);
+                    }
+                }
+                case 4 -> {
+                    for(Patient patient : hospital.getPatientsWithNoInsurance()){
+                        System.out.println(patient);
+                    }
                 }
                 case 5 -> {
-                    System.out.print("Patients with insurance? (y/n): ");
-                    String insurance = scanner.nextLine();
-                    hospital.filterPatientsByInsurance(insurance.equals("y"));
+                    HashMap<String, Long> diagnosisCountMap = hospital.getDiagnosesWithCountSortedByCount();
+
+                    for (Map.Entry<String, Long> entry : diagnosisCountMap.entrySet()) {
+                        System.out.println("Diagnosis: " + entry.getKey() + ", Count: " + entry.getValue());
+                    }
                 }
                 case 6 -> {
+                    for(String diagnose: hospital.getDistinctDiagnoses()){
+                        System.out.println(diagnose);
+                    }
+                }
+                case 7 -> {
+                    HashMap<String, Integer> diagnosisCountMap = hospital.getDiagnosesWithCount();
+
+                    for (Map.Entry<String, Integer> entry : diagnosisCountMap.entrySet()) {
+                        System.out.println("Diagnosis: " + entry.getKey() + ", Count: " + entry.getValue());
+                    }
+                }
+                case 8 -> {
                     hospital.savePatientsInFile("patients.dat");
                     return;
                 }
