@@ -1,53 +1,47 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Hospital {
-    private Patient[] patients;
-    private int currentIndex;
+    private ArrayList<Patient> patients;
 
     public Hospital(){
         createEmptyArrayOfPatients();
     }
 
     public void createEmptyArrayOfPatients(){
-        patients = new Patient[100];
-        currentIndex = 0;
+        patients = new ArrayList<Patient>();
     }
 
     public void displayPatients(){
-        for(int i = 0; i < currentIndex; i++){
-            System.out.println(patients[i]);
+        for(Patient patient : patients){
+            System.out.println(patient);
         }
     }
     public void filterPatientsByDiagnose(String diagnose){
-        for(int i = 0; i < currentIndex; i++){
-            if(patients[i].getDiagnose().equals(diagnose)){
-                System.out.println(patients[i]);
+        for(Patient patient : patients){
+            if(patient.getDiagnose().equals(diagnose)){
+                System.out.println(patient);
             }
         }
     }
 
     public void filterPatientsByMedicineCardNumber(int minCardNumber, int maxCardNumber){
-        for(int i = 0; i < currentIndex; i++){
-            if(patients[i].getMedicineCardNumber() >= minCardNumber && patients[i].getMedicineCardNumber() <= maxCardNumber){
-                System.out.println(patients[i]);
+        for(Patient patient : patients){
+            if(patient.getMedicineCardNumber() >= minCardNumber && patient.getMedicineCardNumber() <= maxCardNumber){
+                System.out.println(patient);
             }
         }
     }
 
     public void filterPatientsByInsurance(boolean hasInsurance){
-        for(int i = 0; i < currentIndex; i++){
-            if(patients[i].getHasInsurance() == hasInsurance){
-                System.out.println(patients[i]);
+        for(Patient patient : patients){
+            if(patient.getHasInsurance() == hasInsurance){
+                System.out.println(patient);
             }
         }
     }
 
     public void addPatient(Scanner scanner){
-        if(currentIndex == patients.length){
-            System.out.println("Out of memory for adding a new patient");
-            return;
-        }
-
         System.out.print("Enter patient ID: ");
         int id = scanner.nextInt();
 
@@ -83,7 +77,7 @@ public class Hospital {
 
         Patient patient = new Patient(id, person, medicineCardNumber, hasInsurance, diagnose);
 
-        patients[currentIndex++] = patient;
+        patients.add(patient);
     }
 
     public void savePatientsInFile(String fileName){
@@ -91,18 +85,9 @@ public class Hospital {
     }
 
     public void loadPatientsFromFile(String fileName){
-        Patient[] patientsFromFile = PatientFileManager.readPatientsFromFile(fileName);
-        if(patientsFromFile == null) {
-            return;
-        }
-
-        for(int i = 0; i < patientsFromFile.length; i++){
-            if(patientsFromFile[i] == null) {
-                break;
-            }
-
-            patients[i] = patientsFromFile[i];
-            currentIndex++;
+        patients = PatientFileManager.readPatientsFromFile(fileName);
+        if(patients == null){
+            patients = new ArrayList<Patient>();
         }
     }
 }

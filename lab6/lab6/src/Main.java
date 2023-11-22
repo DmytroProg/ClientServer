@@ -1,17 +1,55 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Hospital hospital = new Hospital();
+        hospital.loadPatientsFromFile("patients.dat");
+        Scanner scanner = new Scanner(System.in);
+        String[] options = {
+                "add patient",
+                "see all patients",
+                "filter patients by diagnose",
+                "filter patients by medicine card",
+                "filter patients by insurance",
+                "exit"
+        };
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        while(true){
+            for(int i = 0; i < options.length; i++){
+                System.out.println((i+1) + " " + options[i]);
+            }
+            System.out.print("Enter number of an option: ");
+            int index = scanner.nextInt();
+            scanner.nextLine();
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
+            switch(index){
+                case 1:
+                    hospital.addPatient(scanner);
+                    break;
+                case 2:
+                    hospital.displayPatients();
+                    break;
+                case 3:
+                    System.out.print("Enter diagnose: ");
+                    String diagnose = scanner.nextLine();
+                    hospital.filterPatientsByDiagnose(diagnose);
+                    break;
+                case 4:
+                    System.out.print("Enter min medicine card: ");
+                    int min = scanner.nextInt();
+                    System.out.print("Enter max medicine card: ");
+                    int max = scanner.nextInt();
+                    hospital.filterPatientsByMedicineCardNumber(min, max);
+                    break;
+                case 5:
+                    System.out.print("Patients with insurance? (y/n): ");
+                    String insurance = scanner.nextLine();
+                    hospital.filterPatientsByInsurance(insurance.equals("y"));
+                    break;
+                case 6:
+                    hospital.savePatientsInFile("patients.dat");
+                    return;
+            }
         }
     }
 }
