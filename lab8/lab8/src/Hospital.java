@@ -12,40 +12,22 @@ public class Hospital {
         patients = new HashSet<>();
     }
 
-    public TreeSet<Patient> getPatientsByDiagnoseSortedByMedicineCard(String diagnose){
-        TreeSet<Patient> filteredPatients = new TreeSet<Patient>(Comparator.comparingInt(Patient::getMedicineCardNumber));
-
-        for(Patient patient : patients){
-            if(patient.getDiagnose().equals(diagnose)){
-                filteredPatients.add(patient);
-            }
-        }
-
-        return filteredPatients;
+    public Set<Patient> getPatientsByDiagnoseSortedByMedicineCard(String diagnose){
+        return patients.stream()
+                .filter(patient -> patient.getDiagnose().equals(diagnose))
+                .collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparingInt(Patient::getMedicineCardNumber))));
     }
 
-    public HashSet<Patient> getPatientsByMedicineCard(int min, int max){
-        HashSet<Patient> filteredPatients = new HashSet<Patient>();
-
-        for(Patient patient : patients){
-            if(patient.getMedicineCardNumber() >= min && patient.getMedicineCardNumber() <= max){
-                filteredPatients.add(patient);
-            }
-        }
-
-        return filteredPatients;
+    public Set<Patient> getPatientsByMedicineCard(int min, int max){
+        return patients.stream()
+                .filter(patient -> patient.getMedicineCardNumber() >= min && patient.getMedicineCardNumber() <= max)
+                .collect(Collectors.toSet());
     }
 
-    public HashSet<Patient> getPatientsWithNoInsurance(){
-        HashSet<Patient> filteredPatients = new HashSet<Patient>();
-
-        for(Patient patient : patients){
-            if(!patient.getHasInsurance()){
-                filteredPatients.add(patient);
-            }
-        }
-
-        return filteredPatients;
+    public Set<Patient> getPatientsWithNoInsurance(){
+        return patients.stream()
+                .filter(patient -> !patient.getHasInsurance())
+                .collect(Collectors.toSet());
     }
 
     // chat gpt трішки тут поміг, але я цей код розібрав для себе
@@ -118,12 +100,10 @@ public class Hospital {
     }
 
     public Patient searchPatientById(int id) {
-        for (Patient patient : patients) {
-            if (patient.getId() == id) {
-                return patient;
-            }
-        }
-        return null;
+        return patients.stream()
+                .filter(patient -> patient.getId() == id)
+                .findFirst()
+                .orElse(null);
     }
 
     public void removePatient(Patient patient){
